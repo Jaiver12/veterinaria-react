@@ -3,14 +3,24 @@ import Nav from './comapnets/Nav';
 import ActionMenu from './comapnets/ActionMenu';
 import Table from './comapnets/Table';
 import Modal from './comapnets/Modal';
+import { listarEntidad } from './servicio';
 
 class Pagina extends Component {
-	constructot(props){
-		this.state = {};
+	constructor(props) {
+		super(props);
+		this.state = {
+			entidades: [],
+		};
 	}
 
-	listarEntidad = () => {
+	listar = async () => {
 		const { entidad } = this.props;
+		const entidades = await listarEntidad({ entidad });
+		this.setState({ entidades });
+	};
+
+	componentDidMount() {
+		this.listar();
 	}
 
 	render() {
@@ -21,7 +31,7 @@ class Pagina extends Component {
 					<Nav />
 					    <div className="container">
 						    <ActionMenu titulo={titulo}/>
-						    <Table />
+						    <Table entidades={this.state.entidades} />
 						    <Modal />
 						</div>
 				</div>
