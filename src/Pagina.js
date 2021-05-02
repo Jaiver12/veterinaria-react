@@ -3,13 +3,14 @@ import Nav from './comapnets/Nav';
 import ActionMenu from './comapnets/ActionMenu';
 import Table from './comapnets/Table';
 import Modal from './comapnets/Modal';
-import { listarEntidad } from './servicio';
+import { listarEntidad, crearEditarEntidad } from './servicio';
 
 class Pagina extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
 			entidades: [],
+			objeto: {},
 		};
 	}
 
@@ -18,6 +19,21 @@ class Pagina extends Component {
 		const entidades = await listarEntidad({ entidad });
 		this.setState({ entidades });
 	};
+
+	manejarInput = (evento) => {
+		const { target: { value, name } } = evento;
+		let { objeto } = this.state;
+		objeto = { ...objeto, [name]: value };
+		this.setState({ objeto });
+	}
+
+	crearEntidad = async () => {
+		const { entidad } = this.props;
+		let { objeto } = this.state;
+		const method = "POST";
+		await crearEditarEntidad({ entidad,  objeto, method });
+		this.listar();
+	}
 
 	componentDidMount() {
 		this.listar();
@@ -30,9 +46,14 @@ class Pagina extends Component {
 				<div className="container">
 					<Nav />
 					    <div className="container">
-						    <ActionMenu titulo={titulo}/>
+						    <ActionMenu titulo={titulo} />
+
 						    <Table entidades={this.state.entidades} />
-						    <Modal />
+
+						    <Modal
+							    manejarInput={this.manejarInput}
+							    crearEntidad={this.crearEntidad}
+						    />
 						</div>
 				</div>
 			</>

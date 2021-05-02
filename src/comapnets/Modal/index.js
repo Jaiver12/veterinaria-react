@@ -4,20 +4,26 @@ import Select from "./Select";
 import Input from "./Input";
 
 const tiposMascotas = [
-	{valor: "Perro", etiqueta: "Perro"},
+	{
+		valor: "Perro",
+		etiqueta: "Perro",
+	},
 	{valor: "Gato", etiqueta: "Gato"},
 	{valor: "Hanster", etiqueta: "Hanster"},
 	{valor: "Otro", etiqueta: "Otro"},
 ];
 
 const duenos = [
-              	{valor: "Esteban", etiqueta: "Esteban"},
+              	{
+	              	valor: "Esteban",
+	              	etiqueta: "Esteban",
+              	},
 				{valor: "Julian", etiqueta: "Julian"},
 				{valor: "Yolimar", etiqueta: "Yolimar"},
 				{valor: "Jaiver", etiqueta: "Jaiver"},
               ];
 
-function Modal() {
+function Modal({ manejarInput = () => {}, crearEntidad = () => {} }) {
   return (
   	<>
   		<div className="modal fade" id="exampleModal" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -31,14 +37,20 @@ function Modal() {
 				             		 	<input type="hidden" id="indice" />
 				                		<div className="form-row">
 
-							                  <Select options={tiposMascotas}
-							                  nombreCampo="Tipo animal"
+							                  <Select
+							                  	  nombreCampo="tipo"
+								                  options={tiposMascotas}
+								                  placeholder="Tipo animal"
+								                  onChange={manejarInput}
 							                   />
 
-							                  <Input tipo="text" nombreCampo="nombre"/>
+							                  <Input nombreCampo="nombre" tipo="text" onInput={manejarInput} placeholder="nombre"/>
 
-							                  <Select options={duenos}
-							                  nombreCampo="el dueño"
+							                  <Select
+							                  	  nombreCampo="dueno"
+								                  options={duenos}
+								                  placeholder="el dueño"
+								                  onChange={manejarInput}
 							                   />
 
 				                		</div>
@@ -47,7 +59,16 @@ function Modal() {
 
 				            <div className="modal-footer">
 				              <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-				              <button type="button" id="btn-guardar" data-bs-dismiss="modal" className="btn btn-primary">Guardar</button>
+
+				              <button
+					              type="button"
+					              id="btn-guardar"
+					              data-bs-dismiss="modal"
+					              className="btn btn-primary"
+					              onClick={crearEntidad}
+				              >
+				              	Crear
+				              </button>
 				            </div>
 		          	</div>
 		        </div>

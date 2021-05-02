@@ -4,7 +4,7 @@ function Nav() {
   	<>
   		 <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
 		      <div className="container-fluid">
-		        <a className="navbar-brand" href="#">Veterinacia</a>
+		        <a className="navbar-brand" href="index.html">Veterinacia</a>
 		        <button className="navbar-toggler"
 			        type="button"
 			        data-bs-toggle="collapse"

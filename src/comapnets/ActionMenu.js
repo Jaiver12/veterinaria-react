@@ -1,5 +1,4 @@
-import React, { useState } from 'react';
-import Alert from './Alert';
+import React from 'react';
 function ActionMenu({ titulo }) {
   return (
   	<>
